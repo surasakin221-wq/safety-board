@@ -1,0 +1,579 @@
+/* ==========================================================================
+   SAFETY PERFORMANCE BOARD - PHYSICAL twin REPLICA STYLING
+   Theme: Official Whiteboard Safety Signboard
+   ========================================================================== */
+
+/* Design Tokens */
+:root {
+  --primary-color: #006B3F;       /* Board Green */
+  --primary-dark: #0A4C2E;
+  
+  --red-row: #C21807;             /* Last Accident Date Label Red */
+  --blue-row: #004F98;            /* Operated / Target Label Blue */
+  --black-row: #222222;           /* Best Record Label Black */
+  --slogan-color: #00246B;         /* Slogan Blue */
+  
+  --bg-wall: #E2ECE6;             /* Creamy/Light Grey Wall Background */
+  --bg-gradient: radial-gradient(circle at 50% 50%, #F5F7F6 0%, #D4DDD8 100%);
+  
+  --font-th: 'Prompt', 'Sarabun', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-en: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --border-radius-lg: 16px;
+  --border-radius-md: 8px;
+  --border-radius-sm: 4px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  --tv-scale: 1.15;               /* Increased default scale for clearer readability */
+}
+
+/* TV Mode Scaling */
+body.tv-mode {
+  --tv-scale: 1.5;                /* Increased TV scale for large displays */
+}
+
+/* Base Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-th);
+  background: var(--bg-wall);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: #111111;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transition: var(--transition-smooth);
+}
+
+body.tv-mode {
+  overflow: hidden;
+  height: 100vh;
+  padding: 10px;
+}
+
+/* Main Wrapper */
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 1150px;             /* Expanded slightly to match the larger scale */
+  align-items: center;
+}
+
+body.tv-mode .dashboard-wrapper {
+  max-width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   FLOATING CONTROL BAR (OUTSIDE THE WHITEBOARD)
+   ========================================================================== */
+
+.floating-controls {
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+body.tv-mode .floating-controls {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--border-radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition-smooth);
+}
+
+.btn-control {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 107, 63, 0.15);
+  color: var(--primary-color);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.btn-control:hover {
+  background: #FFFFFF;
+  border-color: var(--primary-color);
+}
+
+.btn-admin {
+  background: var(--primary-color);
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 107, 63, 0.15);
+}
+
+.btn-admin:hover {
+  background: var(--primary-dark);
+}
+
+.btn-admin.hidden-admin {
+  display: none !important;
+}
+
+.icon {
+  stroke-width: 2.2;
+}
+
+/* ==========================================================================
+   WHITEBOARD DIGITAL TWIN CONTAINER
+   ========================================================================== */
+
+.whiteboard-board {
+  position: relative;
+  background: #FFFFFF;
+  border: calc(14px * var(--tv-scale)) solid #BAC2C0; /* Simulated Aluminum Frame */
+  border-radius: 12px;
+  /* Green border line inside the whiteboard */
+  outline: calc(3px * var(--tv-scale)) solid var(--primary-color);
+  outline-offset: calc(-12px * var(--tv-scale));
+  
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1), 
+              inset 0 0 6px rgba(0,0,0,0.15);
+  padding: calc(32px * var(--tv-scale));
+  display: flex;
+  flex-direction: column;
+  gap: calc(24px * var(--tv-scale));
+  width: 100%;
+  transition: var(--transition-smooth);
+}
+
+body.tv-mode .whiteboard-board {
+  height: calc(100vh - 40px);
+  justify-content: space-between;
+}
+
+/* ==========================================================================
+   WHITEBOARD HEADER
+   ========================================================================== */
+
+.whiteboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 calc(12px * var(--tv-scale));
+}
+
+.header-texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-title-th {
+  font-family: var(--font-th);
+  font-size: calc(44px * var(--tv-scale));
+  font-weight: 800;
+  color: var(--primary-color);
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+}
+
+.board-title-en {
+  font-family: var(--font-en);
+  font-size: calc(28px * var(--tv-scale));
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: 0.1em;
+  margin-top: calc(-2px * var(--tv-scale));
+}
+
+.header-logos {
+  display: flex;
+  align-items: center;
+  gap: calc(16px * var(--tv-scale));
+}
+
+.hotel-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.hotel-logo-container:hover {
+  transform: scale(1.05);
+}
+
+.hotel-logo-svg {
+  width: calc(68px * var(--tv-scale));
+  height: calc(82px * var(--tv-scale));
+  transition: var(--transition-smooth);
+}
+
+.safety-stamp-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.safety-stamp-container:hover {
+  transform: scale(1.05);
+}
+
+.safety-stamp-svg {
+  width: calc(85px * var(--tv-scale));
+  height: calc(85px * var(--tv-scale));
+  transition: var(--transition-smooth);
+}
+
+.whiteboard-divider {
+  height: calc(4px * var(--tv-scale));
+  background: var(--primary-color);
+  margin: 0 calc(12px * var(--tv-scale));
+  border-radius: 20px;
+}
+
+/* ==========================================================================
+   WHITEBOARD BODY ROWS
+   ========================================================================== */
+
+.whiteboard-body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16px * var(--tv-scale));
+  padding: 0 calc(12px * var(--tv-scale));
+}
+
+.board-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(6px * var(--tv-scale)) 0;
+}
+
+.row-label {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-right: 20px;
+}
+
+.label-th {
+  font-size: calc(24px * var(--tv-scale));
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.label-en {
+  font-family: var(--font-en);
+  font-size: calc(17px * var(--tv-scale));
+  font-weight: bold;
+  letter-spacing: 0.03em;
+  margin-top: 2px;
+}
+
+/* Row-specific colors */
+.row-last-accident .label-th,
+.row-last-accident .label-en {
+  color: var(--red-row);
+}
+
+.row-operated .label-th,
+.row-operated .label-en,
+.row-target .label-th,
+.row-target .label-en {
+  color: var(--blue-row);
+}
+
+.row-best-record .label-th,
+.row-best-record .label-en {
+  color: var(--black-row);
+}
+
+/* Value displays and Slots */
+.row-value-container {
+  display: flex;
+  align-items: center;
+}
+
+.digit-slots {
+  display: flex;
+  align-items: center;
+  background: #E8ECEB;
+  padding: calc(5px * var(--tv-scale));
+  border: 2px solid #959B99;
+  border-radius: var(--border-radius-md);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.digit-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(44px * var(--tv-scale));
+  height: calc(66px * var(--tv-scale));
+  background: #FFFFFF;
+  border: calc(2.2px * var(--tv-scale)) solid #222222;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-mono);
+  font-size: calc(42px * var(--tv-scale));
+  font-weight: 800;
+  color: #000000;
+  margin: 0 calc(2px * var(--tv-scale));
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.digit-separator {
+  font-family: var(--font-mono);
+  font-size: calc(34px * var(--tv-scale));
+  font-weight: 800;
+  color: #444444;
+  margin: 0 calc(5px * var(--tv-scale));
+  user-select: none;
+}
+
+/* Unit tags next to slots */
+.unit-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: calc(12px * var(--tv-scale));
+  line-height: 1.1;
+  width: 60px;
+}
+
+.unit-th {
+  font-size: calc(18px * var(--tv-scale));
+  font-weight: 800;
+  color: var(--blue-row);
+}
+
+.row-best-record .unit-th {
+  color: var(--black-row);
+}
+
+.unit-en {
+  font-family: var(--font-en);
+  font-size: calc(10.5px * var(--tv-scale));
+  font-weight: bold;
+  color: #222222;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   WHITEBOARD FOOTER
+   ========================================================================== */
+
+.whiteboard-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 calc(12px * var(--tv-scale));
+  margin-top: calc(8px * var(--tv-scale));
+}
+
+.footer-slogan {
+  flex: 1;
+  text-align: center;
+  font-size: calc(30px * var(--tv-scale));
+  font-weight: 800;
+  color: var(--slogan-color);
+  font-family: var(--font-th);
+  /* Slogan style: bold italic script look */
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.08);
+  padding-bottom: calc(12px * var(--tv-scale));
+  padding-right: 0; /* Centered perfectly since QR code is moved outside */
+}
+
+
+
+/* ==========================================================================
+   SETTINGS DRAWER & OVERLAY (ADMIN PANEL)
+   ========================================================================== */
+
+.settings-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px; /* Hidden by default */
+  width: 420px;
+  height: 100vh;
+  background: #FFFFFF;
+  box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.settings-drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #E5E7EB;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-header h2 {
+  font-family: var(--font-th);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.drawer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 67, 39, 0.25);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.drawer-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Form Styling inside Drawer */
+.form-group-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary-color);
+  margin: 20px 0 10px 0;
+  border-bottom: 1px dashed rgba(0, 107, 63, 0.15);
+  padding-bottom: 4px;
+}
+
+.form-group-title:first-of-type {
+  margin-top: 0;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #444444;
+}
+
+.form-group input {
+  padding: 8px 12px;
+  border: 1px solid #D1D5DB;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-th);
+  font-size: 13px;
+  color: #111111;
+  transition: var(--transition-smooth);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 107, 63, 0.1);
+}
+
+.form-actions-drawer {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Small screen adjustments */
+@media (max-width: 768px) {
+  :root {
+    --tv-scale: 0.85;            /* Scale down slightly on mobile to prevent horizontal overflow */
+  }
+  
+  body {
+    padding: 10px;
+  }
+  
+  .whiteboard-board {
+    padding: 20px 15px;
+    outline-offset: -8px;
+    gap: 16px;
+  }
+  
+  .board-title-th {
+    font-size: 26px;
+  }
+  
+  .board-title-en {
+    font-size: 18px;
+  }
+  
+  .board-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .row-label {
+    padding-right: 0;
+  }
+  
+  .whiteboard-footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .footer-slogan {
+    padding-right: 0;
+    font-size: 18px;
+  }
+  
+  .settings-drawer {
+    width: 100%;
+    right: -100%;
+  }
+}

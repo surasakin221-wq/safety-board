@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สถิติความปลอดภัย - SAFETY FIRST</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  
+  <!-- Outer Wrapper (Holds floating controls and the whiteboard) -->
+  <div class="dashboard-wrapper">
+    
+    <!-- Floating Admin & TV controls toolbar -->
+    <div class="floating-controls">
+      <!-- TV Mode -->
+      <button id="toggle-tv-mode" class="btn btn-control" title="TV Fullscreen Mode / โหมดจอทีวี">
+        <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+        <span>โหมดจอทีวี (TV Mode)</span>
+      </button>
+
+      <!-- Admin settings trigger (Hidden by default, shown via query param or logo dblclick) -->
+      <button id="open-settings" class="btn btn-admin hidden-admin" title="Open Settings Panel / แก้ไขข้อมูล">
+        <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>แก้ไขข้อมูล (Update Data)</span>
+      </button>
+    </div>
+
+    <!-- MAIN PHYSICAL WHITEBOARD REPLICA -->
+    <main class="whiteboard-board">
+      
+      <!-- WHITEBOARD HEADER -->
+      <div class="whiteboard-header">
+        <div class="header-texts">
+          <h1 class="board-title-th">สถิติความปลอดภัย</h1>
+          <h2 class="board-title-en">SAFETY FIRST</h2>
+        </div>
+        
+            <div class="header-logos">
+              <!-- Novotel brand logo vector (Indigo Blue #263B96) -->
+              <div class="hotel-logo-container" title="Novotel Hotel Brand Logo">
+                <svg width="68" height="82" viewBox="0 0 100 120" class="hotel-logo-svg">
+                  <!-- Curved swoosh -->
+                  <path d="M5,22 C35,23 65,15 90,0 C55,14 25,20 5,22 Z" fill="#263B96" />
+                  <!-- Bold letter N -->
+                  <path d="M30,92 V38 H41 L62,75 V38 H72 V92 H61 L40,55 V92 H30 Z" fill="#263B96" />
+                </svg>
+              </div>
+              
+              <!-- Circular Safety Stamp Logo (Double click to reveal Admin Update button) -->
+              <div class="safety-stamp-container" id="logo-admin-trigger" title="Double-click to toggle Admin Mode / ดับเบิ้ลคลิกเพื่อเปิดโหมดแก้ไข">
+                <svg width="85" height="85" viewBox="0 0 100 100" class="safety-stamp-svg">
+                  <!-- Outer solid green circle -->
+                  <circle cx="50" cy="50" r="48" fill="#006B3F" />
+                  
+                  <!-- Thin white line inside the green area -->
+                  <circle cx="50" cy="50" r="44" stroke="white" stroke-width="1.2" fill="none" />
+                  
+                  <!-- Inner white circle for the cross background -->
+                  <circle cx="50" cy="50" r="28" fill="white" />
+                  
+                  <!-- Thin white line bordering the white center -->
+                  <circle cx="50" cy="50" r="29.5" stroke="white" stroke-width="0.8" fill="none" />
+                  
+                  <!-- Green Cross in the center -->
+                  <path d="M50 34V66M34 50H66" stroke="#006B3F" stroke-width="9.5" stroke-linecap="square" />
+                  
+                  <!-- Text Path Curves (Centered at r=36 inside the green area) -->
+                  <path id="curve-top" d="M 14 50 A 36 36 0 0 1 86 50" fill="none" />
+                  <path id="curve-bottom" d="M 14 50 A 36 36 0 0 0 86 50" fill="none" />
+                  
+                  <!-- Curved White Texts -->
+                  <text fill="white" font-size="9.5" font-family="'Prompt', sans-serif" font-weight="800" letter-spacing="0.5">
+                    <textPath href="#curve-top" startOffset="50%" text-anchor="middle">ปลอดภัยไว้ก่อน</textPath>
+                  </text>
+                  <text fill="white" font-size="8.5" font-family="'Inter', sans-serif" font-weight="700" letter-spacing="1">
+                    <textPath href="#curve-bottom" startOffset="50%" text-anchor="middle">SAFETY FIRST</textPath>
+                  </text>
+                </svg>
+              </div>
+            </div>
+      </div>
+      
+      <!-- Divider Line -->
+      <div class="whiteboard-divider"></div>
+
+      <!-- WHITEBOARD BODY ROWS -->
+      <div class="whiteboard-body">
+        
+        <!-- Row 1: Last Accident Date (Red color scheme) -->
+        <div class="board-row row-last-accident">
+          <div class="row-label">
+            <h3 class="label-th">เกิดอุบัติเหตุครั้งล่าสุดเมื่อ</h3>
+            <span class="label-en">(LAST ACCIDENT OCCURED)</span>
+          </div>
+          <div class="row-value-container">
+            <div class="digit-slots" id="slots-last-accident">
+              <!-- Dynamically populated character slots like [0][2]/[0][3]/[6][8] -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: We Have Operated (Blue color scheme) -->
+        <div class="board-row row-operated">
+          <div class="row-label">
+            <h3 class="label-th">เราทำงานมาแล้ว</h3>
+            <span class="label-en">(WE HAVE OPERATED)</span>
+          </div>
+          <div class="row-value-container">
+            <div class="digit-slots" id="slots-accident-free">
+              <!-- Dynamically populated digit slots like [4][7][2] -->
+            </div>
+            <div class="unit-box">
+              <span class="unit-th">วัน</span>
+              <span class="unit-en">DAYS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Target Goal (Blue color scheme) -->
+        <div class="board-row row-target">
+          <div class="row-label">
+            <h3 class="label-th">เป้าหมาย</h3>
+            <span class="label-en">(TARGET)</span>
+          </div>
+          <div class="row-value-container">
+            <div class="digit-slots" id="slots-target">
+              <!-- Dynamically populated digit slots like [7][3][0] -->
+            </div>
+            <div class="unit-box">
+              <span class="unit-th">วัน</span>
+              <span class="unit-en">DAYS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4: Best Record (Black color scheme) -->
+        <div class="board-row row-best-record">
+          <div class="row-label">
+            <h3 class="label-th">เราเคยมีจำนวนวันสูงสุดที่ไม่เกิดอุบัติเหตุถึงขั้นหยุดงาน</h3>
+            <span class="label-en">(THE BEST RECORD)</span>
+          </div>
+          <div class="row-value-container">
+            <div class="digit-slots" id="slots-best-record">
+              <!-- Dynamically populated digit slots like [4][7][2] -->
+            </div>
+            <div class="unit-box">
+              <span class="unit-th">วัน</span>
+              <span class="unit-en">DAYS</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- WHITEBOARD FOOTER -->
+      <div class="whiteboard-footer">
+        
+        <!-- Centered Slogan -->
+        <div class="footer-slogan">
+          &ldquo;คิดก่อนทำ จำใส่ใจ ปลอดภัยไว้ก่อน&rdquo;
+        </div>
+        
+      </div>
+
+    </main>
+
+
+    <!-- CONTROL DRAWER / ADMIN SETTINGS (SLIDES OUT FROM RIGHT) -->
+    <aside id="settings-drawer" class="settings-drawer">
+      <div class="drawer-header">
+        <h2>จัดการระบบแดชบอร์ด</h2>
+        <button id="close-settings" class="btn-close" title="Close Panel / ปิดหน้าต่าง">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="drawer-content">
+        <form id="settings-form">
+          
+          <div class="form-group-title">ตัวนับจำนวนวันและเป้าหมาย</div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="input-accident-free">วันทำงานปลอดอุบัติเหตุ (Accident-Free Days)</label>
+              <input type="number" id="input-accident-free" name="accidentFree" min="0" max="9999" value="472" required>
+            </div>
+            <div class="form-group">
+              <label for="input-target-days">จำนวนวันเป้าหมาย (Target Days)</label>
+              <input type="number" id="input-target-days" name="targetDays" min="1" max="9999" value="730" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="input-best-record">สถิติที่ดีที่สุด (Best Record)</label>
+              <input type="number" id="input-best-record" name="bestRecord" min="0" max="9999" value="472" required>
+            </div>
+            <div class="form-group">
+              <label for="input-last-date" id="label-last-date">วันที่เกิดอุบัติเหตุล่าสุด (Last Accident Date)</label>
+              <input type="date" id="input-last-date" name="lastDate" value="2025-03-02" required>
+            </div>
+          </div>
+
+          <div class="form-group" style="flex-direction: row; align-items: center; gap: 8px; margin-top: 4px; margin-bottom: 12px;">
+            <input type="checkbox" id="input-never-accident" name="neverAccident" style="width: auto; cursor: pointer;">
+            <label for="input-never-accident" style="cursor: pointer; font-size: 11px; font-weight: 600; color: #444444; user-select: none;">ยังไม่เคยเกิดอุบัติเหตุ (Never had an accident)</label>
+          </div>
+
+
+          <div class="form-actions-drawer">
+            <button type="button" id="reset-defaults" class="btn btn-outline btn-block">คืนค่าเริ่มต้น</button>
+            <button type="submit" class="btn btn-primary btn-block">บันทึกและอัปเดตแดชบอร์ด</button>
+          </div>
+
+        </form>
+      </div>
+    </aside>
+
+    <!-- Overlay backdrop when Settings Drawer is open -->
+    <div id="drawer-overlay" class="drawer-overlay"></div>
+
+  </div>
+
+  <!-- JS Scripts -->
+  <script src="index.js"></script>
+</body>
+</html>
