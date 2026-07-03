@@ -6,7 +6,7 @@
 // Default Configuration State
 const DEFAULT_STATE = {
   targetDays: 730,
-  bestRecord: 472,
+  bestRecord: 528,
   lastDate: "2025-03-02", // YYYY-MM-DD (Acts as tracking start date / opening date when neverAccident is true)
   neverAccident: true,    // Enabled by default: never had an accident
   qrUrl: "" // Empty string defaults to window.location.href
